@@ -22,7 +22,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.gokhulb23.fantasymedium"
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -30,6 +31,20 @@
     "plugins": [
       "expo-router",
       "expo-font"
-    ]
+    ],
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "0b28ffb0-0d9c-465f-bd7d-6b68dc88f1a3"
+      }
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/0b28ffb0-0d9c-465f-bd7d-6b68dc88f1a3"
+    }
   }
 }

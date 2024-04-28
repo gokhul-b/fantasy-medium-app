@@ -1,7 +1,7 @@
 import { View, Text } from "react-native";
 import React from "react";
 
-const Prediction = () => {
+const Prediction = ({ matchData }) => {
   return (
     <View>
       <View
@@ -21,14 +21,18 @@ const Prediction = () => {
           Winner Prediction
         </Text>
         <View className="w-72 flex-row justify-between items-center">
-          <Text className="text-2xl font-pmedium">CSK</Text>
+          <Text className="text-2xl font-pmedium">{matchData.teamA}</Text>
           <Text className="text-xl text-gray-400 font-pregular">vs</Text>
-          <Text className="text-2xl font-pmedium">MI</Text>
+          <Text className="text-2xl font-pmedium">{matchData.teamB}</Text>
         </View>
         <View className="w-48 flex-row justify-between items-center">
-          <Text className="text-base font-pregular">80%</Text>
+          <Text className="text-base font-pregular">
+            {matchData.teamApercentage}%
+          </Text>
           <Text className="text-sm text-gray-400">-</Text>
-          <Text className="text-base font-pregular">20%</Text>
+          <Text className="text-base font-pregular">
+            {matchData.teamBpercentage}%
+          </Text>
         </View>
       </View>
     </View>

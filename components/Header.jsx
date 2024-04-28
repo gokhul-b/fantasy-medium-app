@@ -6,8 +6,10 @@ import { Link, router } from "expo-router";
 
 const Header = () => {
   return (
-    <View className="h-14 justify-between flex-row items-center px-3">
+    <View className="py-3 border-slate-100 justify-between flex-row items-center px-3">
       <TouchableOpacity
+        activeOpacity={1}
+        className="p-2 bg-slate-100 border border-slate-200 rounded-full"
         onPress={() => {
           router.push("/profile");
         }}
@@ -18,7 +20,10 @@ const Header = () => {
         Fantasy Medium
       </Text>
       <View>
-        <TouchableOpacity>
+        <TouchableOpacity
+          activeOpacity={1}
+          className="p-2 bg-slate-100 border border-slate-200 rounded-full"
+        >
           <FontAwesomeIcon icon={faBell} size={22} />
         </TouchableOpacity>
       </View>

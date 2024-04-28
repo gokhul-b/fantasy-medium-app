@@ -1,7 +1,7 @@
 import { View, Text } from "react-native";
 import React from "react";
 
-const MatchTips = () => {
+const MatchTips = ({ matchTips }) => {
   return (
     <View
       className="rounded-2xl bg-white items-center p-4"
@@ -19,11 +19,7 @@ const MatchTips = () => {
       <Text className="text-lg font-pregular">Match Tips</Text>
       <View>
         <Text className="text-sm text-gray-400">#Tip 1</Text>
-        <Text className="text-sm font-plight text-justify">
-          The tabs layout wraps the Bottom Tabs Navigator from React Navigation.
-          You can use the options presented in the React Navigation
-          documentation to customize the tab bar.
-        </Text>
+        <Text className="text-sm font-plight text-justify">{matchTips}</Text>
       </View>
     </View>
   );

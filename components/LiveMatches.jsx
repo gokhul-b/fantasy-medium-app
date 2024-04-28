@@ -1,30 +1,28 @@
 import { View, Text, FlatList } from "react-native";
 import React from "react";
 import MatchCard from "./MatchCard";
+import NoMatches from "./NoMatches";
 
-const LiveMatches = () => {
-  const LiveMatches = [
-    {
-      id: 1,
-      league: "Indian T20 League",
-      startsIn: "",
-      time: "10:30 pm",
-      investmentType: "High Invest.",
-      teamA: "CSK",
-      teamB: "MI",
-    },
-  ];
+const LiveMatches = ({ completedMatches }) => {
   return (
-    <View className="">
-      <Text className="text-lg font-pregular mb-0.5">Live Matches</Text>
+    <View className="w-full">
+      <Text className="text-lg font-pregular mb-0.5 text-slate-800">
+        Teams Available
+      </Text>
       {/* <FlatList
-        data={LiveMatches}
+        data={completedMatches}
         keyExtractor={(item, index) => index.toString()}
-        renderItem={(item) => <MatchCard match={item} />}
+        renderItem={(match) => <MatchCard match={match.item} />}
       /> */}
-      {LiveMatches.map((match, index) => (
-        <MatchCard match={match} key={index} />
-      ))}
+      {completedMatches.length > 1 ? (
+        <View>
+          {completedMatches.map((match, index) => (
+            <MatchCard match={match} key={index} />
+          ))}
+        </View>
+      ) : (
+        <NoMatches />
+      )}
     </View>
   );
 };

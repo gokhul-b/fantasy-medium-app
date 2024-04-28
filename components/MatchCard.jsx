@@ -1,17 +1,17 @@
 import { View, Text, TouchableOpacity } from "react-native";
 import React from "react";
 import { router } from "expo-router";
+import CountDown from "./CountDown";
 
 const MatchCard = ({ match }) => {
-  const { investmentType, league, startsIn, teamA, teamB, time, id } = match;
   const backgroundColor =
-    investmentType === "Low Invest." ? "bg-red-600" : "bg-green-600";
+    match.investType === "Low Invest." ? "bg-red-600" : "bg-green-600";
   return (
     <TouchableOpacity
       onPress={() => {
-        router.push(`/small/${id}`);
+        router.push(`/small/${match.matchId}`);
       }}
-      activeOpacity={70}
+      activeOpacity={1}
       style={{
         shadowColor: "#000",
         shadowOffset: {
@@ -24,28 +24,33 @@ const MatchCard = ({ match }) => {
       }}
       className=" bg-white rounded-2xl space-y-6 flex-col items-center border border-slate-300 pb-3 mb-5"
     >
-      <View className="w-full rounded-t-2xl py-2 pl-2 bg-slate-200">
-        <Text className="text-sm font-pregular text-gray-700">{league}</Text>
+      <View className="w-full rounded-t-2xl py-2 pl-2 pr-3 bg-slate-100 flex-row justify-between">
+        <Text className="text-sm font-pregular text-gray-700">
+          {match.category}
+        </Text>
+        <Text className="text-sm font-pregular text-gray-700">
+          {match.tournament}
+        </Text>
       </View>
       <View className="flex-row items-center justify-between w-72">
-        <Text className="font-pmedium text-lg">{teamA}</Text>
-        {startsIn !== "" ? (
-          <View className="justify-center items-center">
-            <Text className="text-base">{startsIn}</Text>
-            <Text className="text-sm text-gray-400">{time}</Text>
-          </View>
-        ) : (
-          <View className="flex-row">
-            <View className="bg-red-500 flex-row items-center rounded-sm px-1">
-              <Text className="text-xs text-white">Live</Text>
-            </View>
-          </View>
-        )}
-        <Text className="font-pmedium text-lg">{teamB}</Text>
+        <Text className="font-pmedium text-lg">{match.teamA}</Text>
+
+        <View className="items-center rounded-sm px-1">
+          {match.status === "Completed" ? (
+            <Text className="font-pmedium text-slate-500">Completed</Text>
+          ) : (
+            <CountDown matchDate={match.matchDate} startsAt={match.matchTime} />
+          )}
+          <Text className="text-xs text-gray-500 font-pregular">
+            {match.matchDay + ", " + match.startsAt}
+          </Text>
+        </View>
+
+        <Text className="font-pmedium text-lg">{match.teamB}</Text>
       </View>
       <View className="w-full flex items-start">
         <View className={`px-2.5 pt-0.5 rounded-r-md ${backgroundColor}`}>
-          <Text className="font-plight text-white">{investmentType}</Text>
+          <Text className="font-plight text-white">{match.investType}</Text>
         </View>
       </View>
     </TouchableOpacity>

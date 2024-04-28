@@ -5,10 +5,9 @@ import TeamsList from "../../../components/TeamsList";
 
 const GrandLeague = () => {
   const { id } = useGlobalSearchParams();
-  let name = "Grand League";
   return (
     <View className="p-4">
-      <TeamsList name={name} totalTeams={20} />
+      <TeamsList matchId={id} leagueType="Grand" />
     </View>
   );
 };
