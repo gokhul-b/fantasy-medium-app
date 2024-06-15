@@ -6,7 +6,7 @@ import NoMatches from "./NoMatches";
 const LiveMatches = ({ completedMatches }) => {
   return (
     <View className="w-full">
-      <Text className="text-lg font-pregular mb-0.5 text-slate-800">
+      <Text className="text-lg font-pregular mb-2 text-white">
         Teams Available
       </Text>
       {/* <FlatList
@@ -14,7 +14,7 @@ const LiveMatches = ({ completedMatches }) => {
         keyExtractor={(item, index) => index.toString()}
         renderItem={(match) => <MatchCard match={match.item} />}
       /> */}
-      {completedMatches.length > 1 ? (
+      {completedMatches.length > 0 ? (
         <View>
           {completedMatches.map((match, index) => (
             <MatchCard match={match} key={index} />

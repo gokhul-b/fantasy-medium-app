@@ -1,5 +1,11 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { doc, setDoc } from "firebase/firestore";
+import {
+  setPersistence,
+  browserLocalPersistence,
+  inMemoryPersistence,
+  sendPasswordResetEmail,
+} from "firebase/auth";
 import { db, FIREBASE_AUTH } from "../lib/firebase";
 import {
   createUserWithEmailAndPassword,
@@ -8,6 +14,7 @@ import {
 } from "firebase/auth";
 import { router } from "expo-router";
 import { getUsername } from "../app/actions";
+import firebase from "firebase/compat/app";
 
 const AuthContext = createContext();
 const auth = FIREBASE_AUTH;
@@ -15,6 +22,8 @@ const auth = FIREBASE_AUTH;
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [authError, setAuthError] = useState(null);
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(FIREBASE_AUTH, (currentUser) => {
       setUser(currentUser);
@@ -34,9 +43,21 @@ export const AuthProvider = ({ children }) => {
         }
       );
     } catch (error) {
-      console.error("Sign in error:", error);
+      console.log(error.code);
+      setAuthError(error.code);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const resetPassword = async (email) => {
+    try {
+      await sendPasswordResetEmail(auth, email).then(() => {
+        setAuthError(`Password reset mail is sent to ${email}`);
+      });
+    } catch (error) {
+      console.log(error.code);
+      setAuthError(error.code);
     }
   };
 
@@ -69,6 +90,7 @@ export const AuthProvider = ({ children }) => {
       );
     } catch (error) {
       console.error("Sign up error:", error);
+      setAuthError(error.code);
     } finally {
       setLoading(false);
     }
@@ -80,6 +102,7 @@ export const AuthProvider = ({ children }) => {
       await FIREBASE_AUTH.signOut();
     } catch (error) {
       console.error("Sign out error:", error);
+      setAuthError(error.message);
     } finally {
       setLoading(false);
     }
@@ -88,10 +111,11 @@ export const AuthProvider = ({ children }) => {
   const authContextValue = {
     user,
     loading,
-
+    authError,
     signIn,
     signUp,
     signOut,
+    resetPassword,
   };
 
   return (

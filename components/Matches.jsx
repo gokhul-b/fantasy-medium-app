@@ -7,7 +7,7 @@ const Matches = ({ UpMatches, CompMatches }) => {
   const [upcoming, setUpcoming] = useState(UpMatches ?? []);
   const [completed, setCompleted] = useState(CompMatches ?? []);
   return (
-    <View className="p-4">
+    <View className="px-4">
       <View>
         <LiveMatches completedMatches={completed} />
       </View>

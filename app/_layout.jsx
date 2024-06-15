@@ -31,10 +31,38 @@ const RootLayout = () => {
   return (
     <AuthProvider>
       <Stack>
-        <Stack.Screen name="index" options={{ headerShown: false }} />
-        <Stack.Screen name="(auth)" options={{ headerShown: false }} />
-        <Stack.Screen name="(pages)" options={{ headerShown: false }} />
-        <Stack.Screen name="(match)" options={{ headerShown: false }} />
+        <Stack.Screen
+          name="index"
+          options={{
+            headerShown: false,
+            statusBarStyle: "light",
+            statusBarColor: "#18181B",
+          }}
+        />
+        <Stack.Screen
+          name="(auth)"
+          options={{
+            headerShown: false,
+            statusBarStyle: "light",
+            statusBarColor: "#18181B",
+          }}
+        />
+        <Stack.Screen
+          name="(pages)"
+          options={{
+            headerShown: false,
+            statusBarStyle: "light",
+            statusBarColor: "#18181B",
+          }}
+        />
+        <Stack.Screen
+          name="(match)"
+          options={{
+            headerShown: false,
+            statusBarStyle: "light",
+            statusBarColor: "#18181B",
+          }}
+        />
       </Stack>
     </AuthProvider>
   );

@@ -26,10 +26,10 @@ const SmallLeague = () => {
     console.log(matchData);
   }, []);
   return (
-    <View>
+    <View className="flex-1 bg-zinc-900">
       {isLoading ? (
         <View className="h-full flex items-center justify-center">
-          <Text className="text-center">Loading..</Text>
+          <Text className="text-center text-white">Loading..</Text>
         </View>
       ) : (
         <ScrollView className="space-y-6">

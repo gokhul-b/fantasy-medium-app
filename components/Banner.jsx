@@ -24,16 +24,17 @@ const images = [
   },
 ];
 const TrendingItem = ({ item }) => {
+  // const widthBanner = (width * 3) / 4;
   return (
     <Animatable.View className="mr-1" duration={500}>
       <TouchableOpacity
         style={{ width }}
-        className="flex justify-center items-center h-48"
+        className="flex justify-center items-center h-36 px-4"
         activeOpacity={0.7}
       >
         <Image
           source={{ uri: item.uri }}
-          className="object-cover w-full h-full"
+          className="object-cover w-full h-full rounded-lg"
         />
       </TouchableOpacity>
     </Animatable.View>
@@ -54,39 +55,15 @@ const PaginationDots = ({ activeIndex, count }) => {
 };
 
 const Banner = () => {
-  const [activeItem, setActiveItem] = useState(images[0]);
-  const viewableItemsChanged = useRef(({ viewableItems }) => {
+  const [activeItem, setActiveItem] = useState(0);
+  const viewableItemsChanged = ({ viewableItems }) => {
     if (viewableItems.length > 0) {
       setActiveItem(viewableItems[0].index || 0);
     }
-  }).current;
+  };
 
   return (
     <View className="">
-      {/* <ScrollView
-        horizontal
-        pagingEnabled
-        showsHorizontalScrollIndicator={false}
-        onMomentumScrollEnd={(event) => {
-          const newIndex = Math.round(
-            event.nativeEvent.contentOffset.x / width
-          );
-          setActiveIndex(newIndex);
-        }}
-      >
-        {images.map((image) => (
-          <View
-            key={image.id}
-            style={{ width }}
-            className="flex justify-center items-center h-48"
-          >
-            <Image
-              source={{ uri: image.uri }}
-              className="object-cover w-full h-full"
-            />
-          </View>
-        ))}
-      </ScrollView> */}
       <FlatList
         data={images}
         horizontal
@@ -94,13 +71,12 @@ const Banner = () => {
         renderItem={({ item }) => (
           <TrendingItem activeItem={activeItem} item={item} />
         )}
-        onViewableItemsChanged={viewableItemsChanged}
-        viewabilityConfig={{
-          itemVisiblePercentThreshold: 50,
-        }}
+        snapToAlignment="center"
+        pagingEnabled
         showsHorizontalScrollIndicator={false}
+        onViewableItemsChanged={viewableItemsChanged}
       />
-      <View className="mt-10">
+      <View className="mt-4">
         <PaginationDots activeIndex={activeItem} count={images.length} />
       </View>
     </View>
@@ -118,8 +94,8 @@ const styles = StyleSheet.create({
     right: 0,
   },
   dot: {
-    width: 8,
-    height: 8,
+    width: 5,
+    height: 5,
     borderRadius: 4,
     backgroundColor: "#ccc",
     marginHorizontal: 5,

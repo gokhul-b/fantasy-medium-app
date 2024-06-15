@@ -1,8 +1,13 @@
 import { db } from "../lib/firebase";
 
 import { format } from "date-fns";
-import { doc, getDoc, setDoc } from "firebase/firestore";
+import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
 import { collection, query, where, getDocs } from "firebase/firestore";
+
+import * as Notifications from "expo-notifications";
+import Constants from "expo-constants";
+import * as Device from "expo-device";
+import { Platform } from "react-native";
 
 export const getMatches = async () => {
   const matches = [];
@@ -16,7 +21,7 @@ export const getMatches = async () => {
       let match = {
         matchId: doc.id,
         category: doc.data().category,
-
+        teamAvailable: doc.data().teamsAvailable,
         matchDay: format(
           new Date(doc.data().matchDate.seconds * 1000),
           "dd MMMM"
@@ -161,5 +166,83 @@ export const getUserData = async (uid) => {
   } else {
     console.log("No such document!");
     return {};
+  }
+};
+
+function handleRegistrationError(errorMessage) {
+  alert(errorMessage);
+  throw new Error(errorMessage);
+}
+
+export async function registerForPushNotificationsAsync(userId) {
+  console.log(userId);
+  if (Platform.OS === "android") {
+    Notifications.setNotificationChannelAsync("default", {
+      name: "default",
+      importance: Notifications.AndroidImportance.MAX,
+      vibrationPattern: [0, 250, 250, 250],
+      lightColor: "#FF231F7C",
+    });
+  }
+
+  if (Device.isDevice) {
+    const { status: existingStatus } =
+      await Notifications.getPermissionsAsync();
+    let finalStatus = existingStatus;
+    if (existingStatus !== "granted") {
+      const { status } = await Notifications.requestPermissionsAsync();
+      finalStatus = status;
+      console.log(
+        "Permission  granted to get push token for push notification!"
+      );
+    }
+    if (finalStatus !== "granted") {
+      handleRegistrationError(
+        "Permission not granted to get push token for push notification!"
+      );
+      console.log(
+        "Permission not granted to get push token for push notification!"
+      );
+      return;
+    }
+    const projectId =
+      Constants?.expoConfig?.extra?.eas?.projectId ??
+      Constants?.easConfig?.projectId;
+    if (!projectId) {
+      handleRegistrationError("Project ID not found");
+      console.log("Project ID not found");
+    }
+    try {
+      const pushTokenString = (
+        await Notifications.getExpoPushTokenAsync({
+          projectId,
+        })
+      ).data;
+      await updateUserToken(userId, pushTokenString);
+      console.log(pushTokenString);
+      return pushTokenString;
+    } catch (e) {
+      handleRegistrationError(`${e}`);
+      console.log(`${e}`);
+    }
+  } else {
+    handleRegistrationError("Must use physical device for push notifications");
+    console.log("Must use physical device for push notifications");
+  }
+}
+
+export const updateUserToken = async (userId, token) => {
+  console.log("token =>", token);
+  const userRef = doc(collection(db, "users"), userId);
+  try {
+    const userSnap = await getDoc(userRef);
+    if (userSnap.exists()) {
+      await updateDoc(userRef, {
+        notificationToken: token,
+      });
+      console.log("User token updated successfully!");
+    }
+  } catch (error) {
+    console.error("Error updating token successfully!", error);
   }
 };

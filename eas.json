@@ -36,6 +36,9 @@
     },
     "production": {
       "channel": "production",
+      "android": {
+        "buildType": "apk"
+      },
       "env": {
         "EXPO_PUBLIC_FIREBASE_API_KEY": "AIzaSyDQMb6nHMbthMMNmjfpAdbn_xBTp1T3EzI",
         "EXPO_PUBLIC_FIREBASE_AUTH_DOMAIN": "fantasy-medium-admin.firebaseapp.com",

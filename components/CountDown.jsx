@@ -33,7 +33,7 @@ const CountDown = ({ matchDate, startsAt }) => {
   }
 
   return (
-    <View className="flex-row space-x-1 bg-slate-100 px-2 py-0.5 rounded-sm mb-1">
+    <View className="flex-row space-x-1 bg-zinc-100 px-2 py-0.5 rounded-sm mb-1">
       {timeRemaining.days > 0 && <Text>{`${timeRemaining.days}d`}</Text>}
       {timeRemaining.hours > 0 && <Text>{`${timeRemaining.hours}hr`}</Text>}
       {timeRemaining.hours > 0 && <Text>{`${timeRemaining.minutes}m`}</Text>}

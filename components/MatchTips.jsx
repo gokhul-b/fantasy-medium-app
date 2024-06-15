@@ -4,7 +4,7 @@ import React from "react";
 const MatchTips = ({ matchTips }) => {
   return (
     <View
-      className="rounded-2xl bg-white items-center p-4"
+      className="rounded-2xl bg-zinc-50 items-center p-4"
       style={{
         shadowColor: "#000",
         shadowOffset: {
@@ -18,7 +18,7 @@ const MatchTips = ({ matchTips }) => {
     >
       <Text className="text-lg font-pregular">Match Tips</Text>
       <View>
-        <Text className="text-sm text-gray-400">#Tip 1</Text>
+        <Text className="text-sm text-zinc-400">#Tip 1</Text>
         <Text className="text-sm font-plight text-justify">{matchTips}</Text>
       </View>
     </View>

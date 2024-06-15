@@ -5,7 +5,7 @@ const Prediction = ({ matchData }) => {
   return (
     <View>
       <View
-        className="rounded-2xl bg-white p-4 justify-center items-center space-y-2"
+        className="rounded-2xl bg-zinc-50 p-4 justify-center items-center space-y-2"
         style={{
           shadowColor: "#000",
           shadowOffset: {
@@ -22,7 +22,7 @@ const Prediction = ({ matchData }) => {
         </Text>
         <View className="w-72 flex-row justify-between items-center">
           <Text className="text-2xl font-pmedium">{matchData.teamA}</Text>
-          <Text className="text-xl text-gray-400 font-pregular">vs</Text>
+          <Text className="text-xl text-zinc-400 font-pregular">vs</Text>
           <Text className="text-2xl font-pmedium">{matchData.teamB}</Text>
         </View>
         <View className="w-48 flex-row justify-between items-center">

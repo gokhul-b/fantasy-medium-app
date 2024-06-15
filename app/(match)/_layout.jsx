@@ -11,7 +11,6 @@ import GetStarted from "../../components/GetStarted";
 import { getUserData } from "../actions";
 import GetPlan from "../../components/GetPlan";
 import { useAuth } from "../../context/AuthProvider";
-
 const Tab = createMaterialTopTabNavigator();
 const MatchLayout = () => {
   const { user } = useAuth();
@@ -37,24 +36,24 @@ const MatchLayout = () => {
   }, []);
 
   return (
-    <SafeAreaView className="flex-1">
+    <SafeAreaView className="flex-1 bg-zinc-900">
       {isLoading ? (
         <View className="flex items-center justify-center h-full">
-          <Text>Loading...</Text>
+          <Text className="text-white">Loading...</Text>
         </View>
       ) : !user ? (
         <GetStarted />
       ) : isActiveUser ? (
         <Tab.Navigator
           screenOptions={{
-            tabBarActiveTintColor: "white",
-            tabBarInactiveTintColor: "black",
+            tabBarActiveTintColor: "black",
+            tabBarInactiveTintColor: "white",
             tabBarIndicatorStyle: {
-              backgroundColor: "black",
+              backgroundColor: "rgb(234, 179, 8)",
               height: "100%",
             },
             tabBarLabelStyle: { fontWeight: "500" },
-            tabBarStyle: { backgroundColor: "white" },
+            tabBarStyle: { backgroundColor: "#18181B" },
           }}
         >
           <Tab.Screen name="Small" component={SmallLeague} />

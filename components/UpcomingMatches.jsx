@@ -4,9 +4,10 @@ import MatchCard from "./MatchCard";
 import NoMatches from "./NoMatches";
 
 const UpcomingMatches = ({ UpcomingMatches }) => {
+  // console.log(UpcomingMatches);
   return (
     <View className="">
-      <Text className="text-lg font-pregular mb-0.5 text-slate-800">
+      <Text className="text-lg font-pregular mb-2 text-white">
         Upcoming Matches
       </Text>
       {/* <FlatList
@@ -14,7 +15,7 @@ const UpcomingMatches = ({ UpcomingMatches }) => {
         keyExtractor={(item, index) => index.toString()}
         renderItem={(match) => <MatchCard match={match.item} />}
       /> */}
-      {UpcomingMatches.length > 1 ? (
+      {UpcomingMatches.length > 0 ? (
         <View>
           {UpcomingMatches &&
             UpcomingMatches.map((match, index) => (

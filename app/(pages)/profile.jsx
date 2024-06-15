@@ -1,4 +1,4 @@
-import { View, Text, ScrollView } from "react-native";
+import { View, Text, ScrollView, StatusBar } from "react-native";
 import React, { useEffect, useState } from "react";
 import Personal from "../../components/Personal";
 import PlanDetails from "../../components/PlanDetails";
@@ -32,31 +32,30 @@ const Profile = () => {
   }, [user]);
 
   return (
-    <SafeAreaView>
-      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-        <View className="">
-          <Text className="text-2xl my-6 ml-4 font-pregular">Profile</Text>
-          {user && (
-            <View>
-              {isLoading ? (
-                <View>
-                  <Text className="text-center">Loading...</Text>
-                </View>
-              ) : (
-                <View classNamre="space-y-4">
-                  <View>{userData && <Personal userData={userData} />}</View>
-                  <View>{userData && <PlanDetails userData={userData} />}</View>
-                </View>
-              )}
+    <ScrollView className="p-4 bg-zinc-900 flex-1">
+      {user && (
+        <View>
+          {isLoading ? (
+            <View className="py-6">
+              <Text className="text-center text-white">Loading...</Text>
+            </View>
+          ) : (
+            <View className="space-y-8">
+              <View className="mt-4">
+                {userData && <Personal userData={userData} />}
+              </View>
+              <View className="mt-4">
+                {userData && <PlanDetails userData={userData} />}
+              </View>
             </View>
           )}
-          <View className="mt-4">
-            <SupportHelp />
-          </View>
-          <View className="my-4">{user ? <Logout /> : <SignInButton />}</View>
         </View>
-      </ScrollView>
-    </SafeAreaView>
+      )}
+      <View className="mt-8">
+        <SupportHelp />
+      </View>
+      <View className="mt-8">{user ? <Logout /> : <SignInButton />}</View>
+    </ScrollView>
   );
 };
 

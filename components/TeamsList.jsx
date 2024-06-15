@@ -19,11 +19,11 @@ const TeamsList = ({ matchId, leagueType }) => {
   }, []);
   return (
     <View className="">
-      <Text className="text-lg font-pmedium text-center">
+      <Text className="text-lg font-pmedium text-center text-zinc-50">
         {leagueType} Teams
       </Text>
       {teams && (
-        <Text className="text-xs text-center text-gray-500 font-pmedium mb-4">
+        <Text className="text-xs text-center text-zinc-200 font-pmedium mb-4">
           Note: {teams.length} {leagueType} teams available
         </Text>
       )}

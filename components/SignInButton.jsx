@@ -7,7 +7,7 @@ const SignInButton = () => {
     <View className="px-12">
       <Link
         href={"/sign-in"}
-        className="w-full py-3 bg-gray-900 rounded-md text-white text-center text-base"
+        className="w-full py-3 rounded-md text-center text-base bg-yellow-500"
       >
         Sign in
       </Link>
