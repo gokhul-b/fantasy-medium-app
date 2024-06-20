@@ -2,7 +2,6 @@ import { View, Text, TouchableOpacity, ToastAndroid } from "react-native";
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faArrowRightFromBracket } from "@fortawesome/free-solid-svg-icons";
-import { Link } from "expo-router";
 import { FIREBASE_AUTH } from "../lib/firebase";
 
 const Logout = () => {

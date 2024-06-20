@@ -1,13 +1,14 @@
-import { View, Text } from "react-native";
+import { View } from "react-native";
 import React from "react";
-import { useGlobalSearchParams, useLocalSearchParams } from "expo-router";
+import { useGlobalSearchParams } from "expo-router";
 import TeamsList from "../../../components/TeamsList";
+import GrandLeagueTeams from "../../../components/GrandLeagueTeams";
 
 const GrandLeague = () => {
   const { id } = useGlobalSearchParams();
   return (
-    <View className="p-4 flex-1 bg-zinc-900">
-      <TeamsList matchId={id} leagueType="Grand" />
+    <View className="flex-1 bg-zinc-900">
+      <GrandLeagueTeams matchId={id} />
     </View>
   );
 };

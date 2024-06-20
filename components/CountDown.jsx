@@ -16,7 +16,6 @@ const CountDown = ({ matchDate, startsAt }) => {
     const matchDateTime = new Date(`${matchDate}T${startsAt}:00`);
     const now = new Date();
     const difference = matchDateTime - now;
-    // console.log(matchDateTime);
 
     if (difference < 0) {
       return { days: 0, hours: 0, minutes: 0, seconds: 0 };

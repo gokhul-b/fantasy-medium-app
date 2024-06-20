@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   StyleSheet,
 } from "react-native";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState } from "react";
 import * as Animatable from "react-native-animatable";
 const { width } = Dimensions.get("window");
 const images = [
@@ -24,7 +24,6 @@ const images = [
   },
 ];
 const TrendingItem = ({ item }) => {
-  // const widthBanner = (width * 3) / 4;
   return (
     <Animatable.View className="mr-1" duration={500}>
       <TouchableOpacity
@@ -63,7 +62,7 @@ const Banner = () => {
   };
 
   return (
-    <View className="">
+    <View>
       <FlatList
         data={images}
         horizontal

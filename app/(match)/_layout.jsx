@@ -3,10 +3,7 @@ import { createMaterialTopTabNavigator } from "@react-navigation/material-top-ta
 import GrandLeague from "./grand/[id]";
 import SmallLeague from "./small/[id]";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { onAuthStateChanged } from "firebase/auth";
-import { FIREBASE_AUTH } from "../../lib/firebase";
-import { Link } from "expo-router";
-import { ScrollView, Text, View } from "react-native";
+import { Text, View } from "react-native";
 import GetStarted from "../../components/GetStarted";
 import { getUserData } from "../actions";
 import GetPlan from "../../components/GetPlan";

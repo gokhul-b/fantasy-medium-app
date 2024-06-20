@@ -1,22 +1,18 @@
 import {
   View,
   Text,
-  Dimensions,
   Image,
-  Button,
   TouchableOpacity,
   Alert,
   Linking,
 } from "react-native";
 import React, { useState } from "react";
-import { Link } from "expo-router";
-const { width } = Dimensions.get("window");
 
 const TeamCard = ({ data, idx }) => {
   const { imgUrl, joinLink } = data;
-  console.log("TeamCard", data);
   const [imagegUrl, setImageUrl] = useState(imgUrl ?? "");
   const [teamLink, setTeamLink] = useState(joinLink ?? "");
+
   const handleJoinTeam = async () => {
     try {
       const supported = await Linking.canOpenURL(teamLink);

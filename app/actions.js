@@ -58,9 +58,7 @@ export const getMatches = async () => {
       const matchDateTimeString = `${match.matchDate}T${match.matchTime}:00`;
       // Get current date and time
       const matchDateTime = new Date(matchDateTimeString);
-      // console.log(`${match.matchDate}T${match.matchTime}:00`);
       const currentDateTime = new Date();
-      // console.log(currentDateTime);
       // Compare match time with current time
       match.status = matchDateTime > currentDateTime ? "Upcoming" : "Completed";
     });
@@ -79,8 +77,6 @@ export const getMatches = async () => {
       // If match dates are the same, compare start times
       return startTimeA.getTime() - startTimeB.getTime();
     });
-
-    // console.log("sortedMatches => ", sortedMatches);
     return sortedMatches;
   } catch (e) {
     console.error(e);
@@ -93,7 +89,6 @@ export const getMatchData = async (matchId) => {
     const docRef = doc(db, "matches", matchId);
     const docSnap = await getDoc(docRef);
     if (docSnap.exists()) {
-      // console.log("Document data:", docSnap.data());
       const data = docSnap.data();
       let matchData = {
         teamA: data.teamA,
@@ -113,7 +108,6 @@ export const getMatchData = async (matchId) => {
 };
 
 export const getTeamsData = async (matchId, leagueType) => {
-  console.log(matchId, leagueType);
   try {
     const teamsRef = collection(db, "teams");
     const q1 = query(
@@ -125,7 +119,6 @@ export const getTeamsData = async (matchId, leagueType) => {
     let teamsData = [];
     querySnapshot.forEach((doc) => {
       teamsData = doc.data().LeagueTeams;
-      console.log(teamsData);
     });
     return teamsData;
   } catch (e) {
@@ -134,7 +127,6 @@ export const getTeamsData = async (matchId, leagueType) => {
 };
 
 export const addUser = async (userId, data) => {
-  console.log(userId, data);
   try {
     await setDoc(doc(db, "users", userId), data);
     console.log("User is created ");
@@ -149,7 +141,6 @@ export const getUsername = (email) => {
 };
 
 export const getUserData = async (uid) => {
-  console.log(uid);
   const userRef = doc(db, "users", uid);
   const docSnap = await getDoc(userRef);
   if (docSnap.exists()) {
@@ -161,7 +152,6 @@ export const getUserData = async (uid) => {
       planStarts: user.planStarts,
       planEnds: user.planEnds,
     };
-    // console.log("userData =>", userData);
     return userData;
   } else {
     console.log("No such document!");
@@ -245,4 +235,20 @@ export const updateUserToken = async (userId, token) => {
   } catch (error) {
     console.error("Error updating token successfully!", error);
   }
+};
+
+export const getGlTeams = async (matchId) => {
+  const q = query(collection(db, "glteams"), where("matchId", "==", matchId));
+  let glData = {};
+  const querySnapshot = await getDocs(q);
+  querySnapshot.forEach((doc) => {
+    const data = doc.data();
+    let objectData = {
+      genTeams: data.genTeams,
+      mainTeam: data.mainTeam,
+    };
+    let teamName = data.main;
+    glData[teamName] = objectData;
+  });
+  return glData;
 };

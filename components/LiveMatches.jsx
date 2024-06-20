@@ -1,5 +1,4 @@
-import { View, Text, FlatList } from "react-native";
-import React from "react";
+import { View, Text } from "react-native";
 import MatchCard from "./MatchCard";
 import NoMatches from "./NoMatches";
 
@@ -9,11 +8,6 @@ const LiveMatches = ({ completedMatches }) => {
       <Text className="text-lg font-pregular mb-2 text-white">
         Teams Available
       </Text>
-      {/* <FlatList
-        data={completedMatches}
-        keyExtractor={(item, index) => index.toString()}
-        renderItem={(match) => <MatchCard match={match.item} />}
-      /> */}
       {completedMatches.length > 0 ? (
         <View>
           {completedMatches.map((match, index) => (

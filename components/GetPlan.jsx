@@ -1,4 +1,4 @@
-import { View, Text, Image, ScrollView, SafeAreaView } from "react-native";
+import { View, Text, Image, ScrollView } from "react-native";
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faCircleCheck } from "@fortawesome/free-solid-svg-icons";

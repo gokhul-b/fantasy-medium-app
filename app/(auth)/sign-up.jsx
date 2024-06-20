@@ -2,17 +2,12 @@ import {
   View,
   Text,
   TextInput,
-  Button,
   TouchableOpacity,
   Image,
   ToastAndroid,
 } from "react-native";
-import React, { useEffect, useState } from "react";
-import { Link, router } from "expo-router";
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import { db, FIREBASE_AUTH } from "../../lib/firebase";
-import { addUser, getUsername } from "../actions";
-import { doc, setDoc } from "firebase/firestore";
+import React, { useState } from "react";
+import { Link } from "expo-router";
 import { useAuth } from "../../context/AuthProvider";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-regular-svg-icons";

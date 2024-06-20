@@ -1,5 +1,5 @@
-import { View, Text, FlatList, StyleSheet } from "react-native";
-import React, { useEffect, useRef, useState } from "react";
+import { View, Text, FlatList } from "react-native";
+import React, { useEffect, useState } from "react";
 import TeamCard from "./TeamCard";
 import { getTeamsData } from "../app/actions";
 
@@ -20,11 +20,11 @@ const TeamsList = ({ matchId, leagueType }) => {
   return (
     <View className="">
       <Text className="text-lg font-pmedium text-center text-zinc-50">
-        {leagueType} Teams
+        {leagueType} League Teams
       </Text>
       {teams && (
         <Text className="text-xs text-center text-zinc-200 font-pmedium mb-4">
-          Note: {teams.length} {leagueType} teams available
+          Note: {teams.length} teams available
         </Text>
       )}
       <FlatList

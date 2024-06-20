@@ -4,7 +4,6 @@ import Personal from "../../components/Personal";
 import PlanDetails from "../../components/PlanDetails";
 import SupportHelp from "../../components/SupportHelp";
 import Logout from "../../components/Logout";
-import { SafeAreaView } from "react-native-safe-area-context";
 import SignInButton from "../../components/SignInButton";
 import { getUserData } from "../actions";
 import { useAuth } from "../../context/AuthProvider";

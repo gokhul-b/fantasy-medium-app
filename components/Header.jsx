@@ -1,8 +1,7 @@
-import { View, Text, TouchableOpacity, Image } from "react-native";
-import React from "react";
+import { View, Text, TouchableOpacity } from "react-native";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faBell, faUser } from "@fortawesome/free-solid-svg-icons";
-import { Link, router } from "expo-router";
+import { router } from "expo-router";
 
 const Header = () => {
   return (
@@ -19,13 +18,6 @@ const Header = () => {
       <Text className="text-2xl font-psemibold text-center text-white">
         Fantasy Medium
       </Text>
-      {/* <View className="h-12 w-12 border border-black">
-        <Image
-          source={require("../assets/icon.png")}
-          // resizeMode="contain"
-          style={{ width: 56, height: 56, objectFit: "contain" }}
-        />
-      </View> */}
       <View>
         <TouchableOpacity activeOpacity={1} className="p-2 rounded-full">
           <FontAwesomeIcon

@@ -1,5 +1,4 @@
 import { View, Text, TouchableOpacity, Image } from "react-native";
-import React from "react";
 import { Link, router } from "expo-router";
 
 const GetStarted = () => {

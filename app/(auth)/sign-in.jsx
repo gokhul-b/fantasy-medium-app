@@ -6,8 +6,8 @@ import {
   ToastAndroid,
   Image,
 } from "react-native";
-import React, { useEffect, useState } from "react";
-import { Link, router } from "expo-router";
+import React, { useState } from "react";
+import { Link } from "expo-router";
 import { useAuth } from "../../context/AuthProvider";
 import { faEye, faEyeSlash } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";

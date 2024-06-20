@@ -1,6 +1,6 @@
 import { View, Text, ScrollView } from "react-native";
 import React, { useEffect, useState } from "react";
-import { useGlobalSearchParams, useLocalSearchParams } from "expo-router";
+import { useGlobalSearchParams } from "expo-router";
 import Prediction from "../../../components/Prediction";
 import MatchTips from "../../../components/MatchTips";
 import TeamsList from "../../../components/TeamsList";
@@ -23,7 +23,6 @@ const SmallLeague = () => {
       }
     };
     fetchData();
-    console.log(matchData);
   }, []);
   return (
     <View className="flex-1 bg-zinc-900">
