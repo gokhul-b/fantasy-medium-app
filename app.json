@@ -21,8 +21,7 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#1e1e1e"
       },
-      "package": "com.gokhulb23.fantasymedium",
-      "googleServicesFile": "google-services.json",
+      "googleServicesFile": "./android/app/google-services.json",
       "permissions": ["INTERNET"]
     },
     "web": {
