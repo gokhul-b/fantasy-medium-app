@@ -26,13 +26,16 @@
     "preview2": {
       "android": {
         "gradleCommand": ":app:assembleRelease"
-      }
+      },
+      "channel": "preview2"
     },
     "preview3": {
-      "developmentClient": true
+      "developmentClient": true,
+      "channel": "preview3"
     },
     "preview4": {
-      "distribution": "internal"
+      "distribution": "internal",
+      "channel": "preview4"
     },
     "production": {
       "channel": "production",
@@ -45,7 +48,8 @@
         "EXPO_PUBLIC_FIREBASE_PROJECT_ID": "fantasy-medium-admin",
         "EXPO_PUBLIC_FIREBASE_STORAGE_BUCKET": "fantasy-medium-admin.appspot.com",
         "EXPO_PUBLIC_FIREBASE_MESSAGING_SENDER_ID": "654024006669",
-        "EXPO_PUBLIC_FIREBASE_APP_ID": "1:654024006669:web:637680911a24019e4f8944"
+        "EXPO_PUBLIC_FIREBASE_APP_ID": "1:654024006669:web:637680911a24019e4f8944",
+        "EXPO_PUBLIC_WHATSAPP_LINK": "https://api.whatsapp.com/send/?phone=%2B919786420437&text=Hi+FantasyMedium+Support&app_absent=0&lang=en"
       }
     }
   },

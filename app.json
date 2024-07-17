@@ -22,7 +22,7 @@
         "backgroundColor": "#1e1e1e"
       },
       "package": "com.gokhulb23.fantasymedium",
-      "googleServicesFile": "./google-services.json",
+      "googleServicesFile": "google-services.json",
       "permissions": ["INTERNET"]
     },
     "web": {
@@ -35,7 +35,8 @@
         "expo-notifications",
         {
           "icon": "./assets/icon.png",
-          "color": "#1e1e1e"
+          "color": "#1e1e1e",
+          "defaultChannel": "default"
         }
       ]
     ],

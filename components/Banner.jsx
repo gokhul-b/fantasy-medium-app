@@ -6,23 +6,11 @@ import {
   TouchableOpacity,
   StyleSheet,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import * as Animatable from "react-native-animatable";
+import { getAppData } from "../app/actions";
 const { width } = Dimensions.get("window");
-const images = [
-  {
-    id: 1,
-    uri: "https://www.farmley.com/cdn/shop/files/May2023_Website-Home-Banner_2000x.jpg?v=1687326758",
-  },
-  {
-    id: 2,
-    uri: "https://www.farmley.com/cdn/shop/files/Website_new_banner_2000x.jpg?v=1693309993",
-  },
-  {
-    id: 3,
-    uri: "https://www.farmley.com/cdn/shop/files/dried-fruit_web_2000x.jpg?v=1674645038",
-  },
-];
+
 const TrendingItem = ({ item }) => {
   return (
     <Animatable.View className="mr-1" duration={500}>
@@ -55,6 +43,25 @@ const PaginationDots = ({ activeIndex, count }) => {
 
 const Banner = () => {
   const [activeItem, setActiveItem] = useState(0);
+  const [images, setImages] = useState([]);
+
+  useEffect(() => {
+    const fetchBanners = async () => {
+      try {
+        const appData = await getAppData();
+        const bannersArray = Object.keys(appData.banners).map((key, index) => ({
+          id: index,
+          uri: appData.banners[key],
+        }));
+        setImages(bannersArray);
+        console.log(bannersArray);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchBanners();
+  }, []);
+
   const viewableItemsChanged = ({ viewableItems }) => {
     if (viewableItems.length > 0) {
       setActiveItem(viewableItems[0].index || 0);

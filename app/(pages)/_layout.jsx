@@ -11,6 +11,36 @@ const PageLayout = () => {
           headerStyle: { backgroundColor: "rgb(234, 179, 8)" },
         }}
       />
+      <Stack.Screen
+        name="notices"
+        options={{
+          headerShown: true,
+          title: "Notices",
+          headerStyle: { backgroundColor: "rgb(234, 179, 8)" },
+        }}
+      />
+      <Stack.Screen
+        name="help"
+        options={{
+          headerShown: true,
+          title: "Help",
+          headerStyle: { backgroundColor: "rgb(234, 179, 8)" },
+        }}
+      />
+      <Stack.Screen
+        name="contact"
+        options={{
+          headerShown: true,
+          title: "Contact & Support",
+          headerStyle: { backgroundColor: "rgb(234, 179, 8)" },
+        }}
+      />
+      <Stack.Screen
+        name="plans"
+        options={{
+          headerShown: false,
+        }}
+      />
     </Stack>
   );
 };

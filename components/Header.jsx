@@ -19,7 +19,13 @@ const Header = () => {
         Fantasy Medium
       </Text>
       <View>
-        <TouchableOpacity activeOpacity={1} className="p-2 rounded-full">
+        <TouchableOpacity
+          activeOpacity={1}
+          className="p-2 rounded-full"
+          onPress={() => {
+            router.push("/notices");
+          }}
+        >
           <FontAwesomeIcon
             icon={faBell}
             size={22}

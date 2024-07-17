@@ -8,6 +8,7 @@ import GetStarted from "../../components/GetStarted";
 import { getUserData } from "../actions";
 import GetPlan from "../../components/GetPlan";
 import { useAuth } from "../../context/AuthProvider";
+import Loading from "../../components/Loading";
 const Tab = createMaterialTopTabNavigator();
 const MatchLayout = () => {
   const { user } = useAuth();
@@ -32,13 +33,12 @@ const MatchLayout = () => {
     }
   }, []);
 
+  if (isLoading) {
+    return <Loading />;
+  }
   return (
     <SafeAreaView className="flex-1 bg-zinc-900">
-      {isLoading ? (
-        <View className="flex items-center justify-center h-full">
-          <Text className="text-white">Loading...</Text>
-        </View>
-      ) : !user ? (
+      {!user ? (
         <GetStarted />
       ) : isActiveUser ? (
         <Tab.Navigator

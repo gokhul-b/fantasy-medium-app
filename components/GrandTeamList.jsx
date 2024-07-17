@@ -73,14 +73,14 @@ const GrandTeamList = ({ genTeams, mainTeam }) => {
   };
 
   return (
-    <ScrollView>
+    <View>
       {genTeams &&
         genTeams.map((teamPair, index) => (
-          <View key={index} className="rounded-lg bg-white mb-4 ">
-            <Text className="text-xs text-slate-400 text-center py-1 font-psemibold">
+          <View key={index} className="rounded-lg bg-white mb-4 p-3">
+            <Text className="text-xs text-slate-400 text-center font-psemibold">
               #Team{index + 1}
             </Text>
-            <View className="p-2 ">
+            <View>
               {Object.entries(groupedPlayers).map(([group, players]) => (
                 <View key={group} className="mb-2">
                   <Text className="text-xs font-semibold font-pbold">
@@ -96,7 +96,7 @@ const GrandTeamList = ({ genTeams, mainTeam }) => {
             </View>
           </View>
         ))}
-    </ScrollView>
+    </View>
   );
 };
 

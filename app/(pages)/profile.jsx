@@ -1,4 +1,4 @@
-import { View, Text, ScrollView, StatusBar } from "react-native";
+import { View, ScrollView, RefreshControl } from "react-native";
 import React, { useEffect, useState } from "react";
 import Personal from "../../components/Personal";
 import PlanDetails from "../../components/PlanDetails";
@@ -7,12 +7,14 @@ import Logout from "../../components/Logout";
 import SignInButton from "../../components/SignInButton";
 import { getUserData } from "../actions";
 import { useAuth } from "../../context/AuthProvider";
+import Loading from "../../components/Loading";
 
 const Profile = () => {
   const { user } = useAuth();
   const [userData, setUserData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  console.log(user);
+  const [isReload, setIsReload] = useState(false);
+
   useEffect(() => {
     const fetchUserData = async () => {
       setIsLoading(true);
@@ -28,32 +30,41 @@ const Profile = () => {
     if (user) {
       fetchUserData();
     }
-  }, [user]);
+  }, [user, isReload]);
 
+  if (isLoading) {
+    return <Loading />;
+  }
   return (
-    <ScrollView className="p-4 bg-zinc-900 flex-1">
+    <ScrollView
+      className="px-4 bg-zinc-900 flex-1"
+      refreshControl={
+        <RefreshControl
+          colors={["#eab308"]}
+          refreshing={false}
+          onRefresh={() => {
+            setIsReload((prev) => !prev);
+          }}
+          progressBackgroundColor="#18181B"
+        />
+      }
+    >
       {user && (
         <View>
-          {isLoading ? (
-            <View className="py-6">
-              <Text className="text-center text-white">Loading...</Text>
+          <View className="space-y-8">
+            <View className="mt-4">
+              {userData && <Personal userData={userData} />}
             </View>
-          ) : (
-            <View className="space-y-8">
-              <View className="mt-4">
-                {userData && <Personal userData={userData} />}
-              </View>
-              <View className="mt-4">
-                {userData && <PlanDetails userData={userData} />}
-              </View>
+            <View className="mt-4">
+              {userData && <PlanDetails userData={userData} />}
             </View>
-          )}
+          </View>
         </View>
       )}
       <View className="mt-8">
         <SupportHelp />
       </View>
-      <View className="mt-8">{user ? <Logout /> : <SignInButton />}</View>
+      <View className="mt-8 mb-4">{user ? <Logout /> : <SignInButton />}</View>
     </ScrollView>
   );
 };

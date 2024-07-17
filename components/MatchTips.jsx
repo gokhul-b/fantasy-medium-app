@@ -16,9 +16,20 @@ const MatchTips = ({ matchTips }) => {
       }}
     >
       <Text className="text-lg font-pregular">Match Tips</Text>
-      <View>
-        <Text className="text-sm text-zinc-400">#Tip 1</Text>
-        <Text className="text-sm font-plight text-justify">{matchTips}</Text>
+      <View className="space-y-2">
+        <View>
+          <Text className="text-sm text-zinc-400">#Tip 1</Text>
+          <Text className="text-sm font-pregular text-justify">
+            Visit the Grand League section for automatically generated GL teams
+            and captain and vice-captain selections.
+          </Text>
+        </View>
+        <View>
+          <Text className="text-sm text-zinc-400">#Tip 2</Text>
+          <Text className="text-sm font-pregular  text-justify">
+            {matchTips}
+          </Text>
+        </View>
       </View>
     </View>
   );

@@ -20,8 +20,8 @@ const SelectVC = ({ genTeams }) => {
   };
 
   return (
-    <View className="border border-slate-200 space-y-2.5 rounded-lg items-center px-2 py-2.5 justify-between">
-      <View className="border border-zinc-300 rounded-md focus:border-2 focus:border-zinc-100 w-3/4 bg-white">
+    <View className="space-y-3 items-center justify-between">
+      <View className="rounded-md focus:border-2 focus:border-zinc-100 w-3/4 bg-white">
         <Picker
           selectedValue={selectedCaptain}
           onValueChange={(itemValue) => onCaptainChange(itemValue)}
@@ -33,10 +33,10 @@ const SelectVC = ({ genTeams }) => {
         </Picker>
       </View>
       <View>
-        <Text className="text-slate-200 text-center font-psemibold">
-          Best vicecaptain choices
+        <Text className="text-slate-300 text-xs mb-1 text-center font-psemibold">
+          99% Accurate Vice-Captain Choices
         </Text>
-        <Text className="text-slate-200 text-center">
+        <Text className="text-center text-yellow-400">
           {viceCaptains.join(", ")}
         </Text>
       </View>

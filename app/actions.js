@@ -1,9 +1,8 @@
 import { db } from "../lib/firebase";
 
-import { format } from "date-fns";
+import { format, parse } from "date-fns";
 import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
 import { collection, query, where, getDocs } from "firebase/firestore";
-
 import * as Notifications from "expo-notifications";
 import Constants from "expo-constants";
 import * as Device from "expo-device";
@@ -251,4 +250,52 @@ export const getGlTeams = async (matchId) => {
     glData[teamName] = objectData;
   });
   return glData;
+};
+
+export const getNotices = async () => {
+  const Notices = [];
+  try {
+    const querySnapshot = await getDocs(collection(db, "notices"));
+    querySnapshot.forEach((doc) => {
+      let data = doc.data();
+      let updatedTimeData = {
+        ...data,
+        timeStamp: formatDate(data.timeStamp),
+      };
+      console.log("updatedTimeData => ", updatedTimeData);
+      Notices.push(updatedTimeData);
+    });
+    return Notices;
+  } catch (error) {
+    return Notices;
+  }
+};
+
+function formatDate(input) {
+  // Parse the input date string
+  const inputDate = parse(input, "M/d/yyyy, h:mm:ss a", new Date());
+  console.log(input);
+  // Format the parsed date into the desired format
+  const formattedDate = format(inputDate, "EEEE d MMMM h:mm a");
+
+  return formattedDate;
+}
+
+export const getAppData = async () => {
+  const appRef = doc(collection(db, "app"), "APPLICATIONDATA");
+  let appData = {};
+  try {
+    const appSnap = await getDoc(appRef);
+    if (appSnap.exists()) {
+      let tempAppData = appSnap.data();
+      appData = {
+        help: tempAppData.help,
+        contactSupport: tempAppData.contactSupport,
+        banners: tempAppData.banners,
+      };
+    }
+    return appData;
+  } catch (error) {
+    console.error(error);
+  }
 };

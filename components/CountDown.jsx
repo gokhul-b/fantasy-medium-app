@@ -13,7 +13,9 @@ const CountDown = ({ matchDate, startsAt }) => {
   }, []);
 
   function calculateTimeRemaining() {
-    const matchDateTime = new Date(`${matchDate}T${startsAt}:00`);
+    const matchDateTime = new Date(
+      `${matchDate}T${convertTimeTo24HourFormat(startsAt)}:00`
+    );
     const now = new Date();
     const difference = matchDateTime - now;
 
@@ -31,13 +33,31 @@ const CountDown = ({ matchDate, startsAt }) => {
     return { days, hours, minutes, seconds };
   }
 
+  function convertTimeTo24HourFormat(time) {
+    const [timePart, modifier] = time.split(" ");
+    let [hours, minutes] = timePart.split(":");
+
+    if (hours === "12") {
+      hours = "00";
+    }
+
+    if (modifier === "PM") {
+      hours = parseInt(hours, 10) + 12;
+    }
+
+    return `${hours}:${minutes}`;
+  }
+
   return (
-    <View className="flex-row space-x-1 bg-zinc-100 px-2 py-0.5 rounded-sm mb-1">
-      {timeRemaining.days > 0 && <Text>{`${timeRemaining.days}d`}</Text>}
-      {timeRemaining.hours > 0 && <Text>{`${timeRemaining.hours}hr`}</Text>}
-      {timeRemaining.hours > 0 && <Text>{`${timeRemaining.minutes}m`}</Text>}
-      {timeRemaining.hours > 0 && <Text>{`${timeRemaining.seconds}s`}</Text>}
+    <View className="flex-row space-x-1">
+      {timeRemaining.days > 0 && (
+        <Text className="text-slate-100 font-pmedium">{`${timeRemaining.days}d`}</Text>
+      )}
+      <Text className="text-slate-100 font-pmedium">{`${timeRemaining.hours}hr`}</Text>
+      <Text className="text-slate-100 font-pmedium">{`${timeRemaining.minutes}m`}</Text>
+      <Text className="text-slate-100 font-pmedium">{`${timeRemaining.seconds}s`}</Text>
     </View>
   );
 };
+
 export default CountDown;

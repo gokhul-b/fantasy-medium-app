@@ -17,6 +17,7 @@ const TeamCard = ({ data, idx }) => {
     try {
       const supported = await Linking.canOpenURL(teamLink);
       if (supported) {
+        console.log(teamLink);
         await Linking.openURL(teamLink);
       } else {
         throw new Error("Link Expired");

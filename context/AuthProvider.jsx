@@ -1,11 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { doc, setDoc } from "firebase/firestore";
-import {
-  setPersistence,
-  browserLocalPersistence,
-  inMemoryPersistence,
-  sendPasswordResetEmail,
-} from "firebase/auth";
+import { sendPasswordResetEmail } from "firebase/auth";
 import { db, FIREBASE_AUTH } from "../lib/firebase";
 import {
   createUserWithEmailAndPassword,
@@ -14,7 +9,6 @@ import {
 } from "firebase/auth";
 import { router } from "expo-router";
 import { getUsername } from "../app/actions";
-import firebase from "firebase/compat/app";
 
 const AuthContext = createContext();
 const auth = FIREBASE_AUTH;

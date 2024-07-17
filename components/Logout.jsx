@@ -1,10 +1,42 @@
-import { View, Text, TouchableOpacity, ToastAndroid } from "react-native";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  ToastAndroid,
+  Alert,
+} from "react-native";
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faArrowRightFromBracket } from "@fortawesome/free-solid-svg-icons";
 import { FIREBASE_AUTH } from "../lib/firebase";
 
 const Logout = () => {
+  const showAlert = () =>
+    Alert.alert(
+      "Oh no! You're leaving...",
+      "Are you sure?",
+      [
+        {
+          text: "Yes",
+          onPress: () => {
+            handleSignOut();
+          },
+          style: "cancel",
+        },
+        {
+          text: "No",
+          onPress: () => Alert.alert("Good decision!"),
+          style: "cancel",
+        },
+      ]
+      // {
+      //   cancelable: true,
+      //   onDismiss: () =>
+      //     Alert.alert(
+      //       "This alert was dismissed by tapping outside of the alert dialog."
+      //     ),
+      // }
+    );
   const handleSignOut = async () => {
     try {
       await FIREBASE_AUTH.signOut();
@@ -20,14 +52,15 @@ const Logout = () => {
         User Actions
       </Text>
       <TouchableOpacity
-        className="py-2 flex-row items-center space-x-2 "
-        onPress={handleSignOut}
+        className="border rounded-md pl-3 border-slate-300 py-3 flex-row items-center space-x-2"
+        onPress={showAlert}
       >
         <FontAwesomeIcon
           icon={faArrowRightFromBracket}
           style={{ color: "#EEEEEE" }}
+          size={24}
         />
-        <Text className="text-base font-pregular text-zinc-100">Logout</Text>
+        <Text className="text-base font-psemibold text-zinc-100">Logout</Text>
       </TouchableOpacity>
     </View>
   );
