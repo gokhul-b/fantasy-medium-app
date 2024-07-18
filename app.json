@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Fantasy Medium",
-    "slug": "fantasy-medium",
+    "slug": "fm-app",
     "scheme": "fantasy-medium",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -21,7 +21,7 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#1e1e1e"
       },
-      "googleServicesFile": "./android/app/google-services.json",
+      "package": "com.gokhulb23.fantasymedium",
       "permissions": ["INTERNET"]
     },
     "web": {
@@ -44,7 +44,7 @@
         "origin": false
       },
       "eas": {
-        "projectId": "0b28ffb0-0d9c-465f-bd7d-6b68dc88f1a3"
+        "projectId": "934289de-16f9-443c-af71-ee547b9b07b4"
       }
     },
     "runtimeVersion": {
@@ -52,6 +52,7 @@
     },
     "updates": {
       "url": "https://u.expo.dev/0b28ffb0-0d9c-465f-bd7d-6b68dc88f1a3"
-    }
+    },
+    "owner": "gokhulb23"
   }
 }
