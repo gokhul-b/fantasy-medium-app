@@ -8,7 +8,7 @@ const LiveMatches = ({ completedMatches }) => {
       <Text className="text-lg font-pregular mb-2 text-white">
         Teams Available
       </Text>
-      {completedMatches.length > 0 ? (
+      {completedMatches?.length > 0 ? (
         <View>
           {completedMatches.map((match, index) => (
             <MatchCard match={match} key={index} />

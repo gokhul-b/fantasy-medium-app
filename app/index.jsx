@@ -7,6 +7,8 @@ import Matches from "../components/Matches";
 import * as Notifications from "expo-notifications";
 import { useAuth } from "../context/AuthProvider";
 import Loading from "../components/Loading";
+import Categories from "../components/Categories";
+import Announcement from "../components/Announcement";
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -25,6 +27,7 @@ export default function App() {
   const [isReload, setIsReload] = useState(false);
   const responseListener = useRef();
   const { user } = useAuth();
+  const [category, setCategory] = useState("");
 
   useEffect(() => {
     if (user) {
@@ -58,8 +61,7 @@ export default function App() {
     const fetchData = async () => {
       setIsLoading(true);
       try {
-        const data = await getMatches();
-        setMatches(data);
+        getMatches(setMatches);
       } catch (e) {
         console.log(e);
       } finally {
@@ -72,13 +74,7 @@ export default function App() {
   const onRefresh = useCallback(() => {
     setIsReload((prev) => !prev);
   }, []);
-
-  const upcoming =
-    matches && matches.filter((match) => match.teamAvailable == false);
-
-  const completed =
-    matches && matches.filter((match) => match.teamAvailable == true);
-
+  console.log(category);
   return (
     <View className="flex-1 bg-zinc-900">
       <View className="">
@@ -95,13 +91,28 @@ export default function App() {
         }
       >
         <Banner />
-        <Text className="text-gray-200 text-xs text-center my-2">
+        {/* <Text className="text-gray-200 text-xs text-center my-2">
           Swipe down to refresh
-        </Text>
+        </Text> */}
+        <View className="">
+          <Announcement />
+        </View>
+        <View className="mt-4 mb-6">
+          <Categories category={category} setCategory={setCategory} />
+        </View>
         {isLoading ? (
           <Loading />
         ) : (
-          <Matches UpMatches={upcoming} CompMatches={completed} />
+          <Matches
+            UpMatches={matches?.filter(
+              (match) =>
+                match.teamAvailable == false && match.category == category
+            )}
+            CompMatches={matches?.filter(
+              (match) =>
+                match.teamAvailable == true && match.category == category
+            )}
+          />
         )}
       </ScrollView>
     </View>

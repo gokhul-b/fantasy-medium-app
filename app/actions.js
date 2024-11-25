@@ -2,84 +2,77 @@ import { db } from "../lib/firebase";
 
 import { format, parse } from "date-fns";
 import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
-import { collection, query, where, getDocs } from "firebase/firestore";
+import {
+  collection,
+  query,
+  where,
+  getDocs,
+  onSnapshot,
+} from "firebase/firestore";
 import * as Notifications from "expo-notifications";
 import Constants from "expo-constants";
 import * as Device from "expo-device";
 import { Platform } from "react-native";
 
-export const getMatches = async () => {
-  const matches = [];
+export const getMatches = (setMatches) => {
   try {
-    const querySnapshot = await getDocs(collection(db, "matches"));
-    querySnapshot.forEach((doc) => {
-      const [hours, minutes] = doc.data().matchTime.split(":");
-      const date = new Date();
-      date.setHours(parseInt(hours, 10));
-      date.setMinutes(parseInt(minutes, 10));
-      let match = {
-        matchId: doc.id,
-        category: doc.data().category,
-        teamAvailable: doc.data().teamsAvailable,
-        matchDay: format(
-          new Date(doc.data().matchDate.seconds * 1000),
-          "dd MMMM"
-        ),
-        date: format(
-          new Date(doc.data().matchDate.seconds * 1000),
-          "dd MMMM yyyy"
-        ),
-        matchDate: format(
-          new Date(doc.data().matchDate.seconds * 1000),
-          "yyyy-MM-dd"
-        ),
-        startsAt: date.toLocaleTimeString("en-US", {
-          hour: "numeric",
-          minute: "2-digit",
-          hour12: true,
-        }),
-        matchTime: doc.data().matchTime,
-        teamA: doc.data().teamA,
-        teamB: doc.data().teamB,
-        tournament: doc.data().tournament,
-        prediction: `${doc.data().teamApercentage}% - ${
-          doc.data().teamBpercentage
-        }%`,
-        investType: doc.data().investType,
-        status: "",
-      };
-      matches.push(match);
+    onSnapshot(collection(db, "matches"), (snapshot) => {
+      const matches = [];
+      snapshot.docs.forEach((doc) => {
+        const [hours, minutes] = doc.data().matchTime.split(":");
+        const date = new Date();
+        date.setHours(parseInt(hours, 10));
+        date.setMinutes(parseInt(minutes, 10));
+        let match = {
+          matchId: doc.id,
+          category: doc.data().category,
+          teamAvailable: doc.data().teamsAvailable,
+          matchDay: format(
+            new Date(doc.data().matchDate.seconds * 1000),
+            "dd MMMM"
+          ),
+          date: format(
+            new Date(doc.data().matchDate.seconds * 1000),
+            "dd MMMM yyyy"
+          ),
+          matchDate: format(
+            new Date(doc.data().matchDate.seconds * 1000),
+            "yyyy-MM-dd"
+          ),
+          startsAt: date.toLocaleTimeString("en-US", {
+            hour: "numeric",
+            minute: "2-digit",
+            hour12: true,
+          }),
+          matchTime: doc.data().matchTime,
+          teamA: doc.data().teamA,
+          teamB: doc.data().teamB,
+          tournament: doc.data().tournament,
+          prediction: `${doc.data().teamApercentage}% - ${
+            doc.data().teamBpercentage
+          }%`,
+          investType: doc.data().investType,
+          status: "",
+        };
+        matches.push(match);
+      });
+      matches.forEach((match) => {
+        // Convert match start time to Date object
+        const matchDateTimeString = `${match.matchDate}T${match.matchTime}:00`;
+        // Get current date and time
+        const matchDateTime = new Date(matchDateTimeString);
+        const currentDateTime = new Date();
+        // Compare match time with current time
+        match.status =
+          matchDateTime > currentDateTime ? "Upcoming" : "Completed";
+      });
+      matches.sort((a, b) => new Date(b.matchDate) - new Date(a.matchDate));
+      setMatches(matches);
     });
-
-    // const currentDateTime = new Date(); // Get current date and time
-    matches.forEach((match) => {
-      // Convert match start time to Date object
-      const matchDateTimeString = `${match.matchDate}T${match.matchTime}:00`;
-      // Get current date and time
-      const matchDateTime = new Date(matchDateTimeString);
-      const currentDateTime = new Date();
-      // Compare match time with current time
-      match.status = matchDateTime > currentDateTime ? "Upcoming" : "Completed";
-    });
-    const sortedMatches = matches.sort((a, b) => {
-      // Convert matchDate and startsAt to Date objects
-      const dateA = new Date(Date.parse(a.matchDate));
-      const dateB = new Date(Date.parse(b.matchDate));
-      const startTimeA = new Date(`${a.matchDate} ${a.startsAt}`);
-      const startTimeB = new Date(`${b.matchDate} ${b.startsAt}`);
-
-      // Compare match dates first
-      if (dateA.getTime() !== dateB.getTime()) {
-        return dateA.getTime() - dateB.getTime();
-      }
-
-      // If match dates are the same, compare start times
-      return startTimeA.getTime() - startTimeB.getTime();
-    });
-    return sortedMatches;
+    // return matches;
   } catch (e) {
-    console.error(e);
-    return matches;
+    console.error("error", e);
+    // return matches;
   }
 };
 
@@ -260,10 +253,17 @@ export const getNotices = async () => {
       let data = doc.data();
       let updatedTimeData = {
         ...data,
-        timeStamp: formatDate(data.timeStamp),
+        formattedTimeStamp: formatDate(data.timeStamp),
+        timeStamp: data.timeStamp,
       };
-      console.log("updatedTimeData => ", updatedTimeData);
+      // console.log("updatedTimeData => ", updatedTimeData);
       Notices.push(updatedTimeData);
+    });
+    Notices.sort((a, b) => {
+      // Parse the timeStamps to Date objects for comparison
+      let dateA = parse(a.timeStamp, "M/d/yyyy, h:mm:ss a", new Date());
+      let dateB = parse(b.timeStamp, "M/d/yyyy, h:mm:ss a", new Date());
+      return dateB - dateA;
     });
     return Notices;
   } catch (error) {

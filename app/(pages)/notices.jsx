@@ -1,6 +1,6 @@
 import { View, Text, ScrollView } from "react-native";
 import React, { useEffect, useState } from "react";
-import { getNotices, getUserData } from "../actions";
+import { getNotices } from "../actions";
 import Loading from "../../components/Loading";
 
 const Notices = () => {
@@ -11,6 +11,7 @@ const Notices = () => {
       setIsLoading(true);
       try {
         const data = await getNotices();
+        data.sort((a, b) => new Date(b.timeStamp) - new Date(a.timeStamp));
         setNotices(data);
       } catch (e) {
         console.log(e);
@@ -32,7 +33,7 @@ const Notices = () => {
             return (
               <View className="my-2.5" key={index}>
                 <Text className="text-slate-300 text-center text-xs mb-2 font-pregular">
-                  {notice.timeStamp}
+                  {notice.formattedTimeStamp}
                 </Text>
                 <View className="border-b bg-zinc-800 px-2 pt-2 pb-3.5 rounded-lg">
                   <Text className="text-slate-200 font-pmedium text-base">

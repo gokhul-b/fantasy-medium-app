@@ -9,7 +9,7 @@ const UpcomingMatches = ({ UpcomingMatches }) => {
       <Text className="text-lg font-pregular mb-2 text-white">
         Upcoming Matches
       </Text>
-      {UpcomingMatches.length > 0 ? (
+      {UpcomingMatches?.length > 0 ? (
         <View>
           {UpcomingMatches &&
             UpcomingMatches.map((match, index) => (
